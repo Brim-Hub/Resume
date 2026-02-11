@@ -1,0 +1,406 @@
+<html class="dark"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#4725f4",
+            "background-dark": "#020108",
+          },
+          fontFamily: {
+            "display": ["Space Grotesk", "sans-serif"]
+          },
+          borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style type="text/tailwindcss">
+    @layer utilities {
+      .cosmic-abyss {
+        background: radial-gradient(circle at center, #0a051e 0%, #020108 100%);
+      }
+      .nebula-cloud {
+        filter: blur(80px);
+        opacity: 0.15;
+        mix-blend-mode: screen;
+      }
+      .frosted-refraction {
+        background: rgba(255, 255, 255, 0.01);
+        backdrop-filter: blur(24px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+      }
+      .light-streak {
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transform: skewX(-20deg);
+      }
+      .sphere-3d {
+        background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, rgba(71, 37, 244, 0.2) 60%, rgba(0,0,0,0.8) 100%);
+        box-shadow: inset -5px -5px 15px rgba(0,0,0,0.5), 0 0 20px rgba(71, 37, 244, 0.3);
+      }
+      .holographic-flicker {
+        position: relative;
+        overflow: hidden;
+      }
+      .holographic-flicker::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(0deg, transparent 50%, rgba(71, 37, 244, 0.05) 50%);
+        background-size: 100% 4px;
+        pointer-events: none;
+      }
+      .laser-pulse {
+        box-shadow: 0 0 15px #4725f4, 0 0 5px #fff;
+      }
+      .hyper-space-hover {
+        perspective: 1500px;
+      }
+      .hyper-space-hover .inner-parallax {
+        transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .hyper-space-hover:hover .inner-parallax {
+        transform: translateZ(50px) scale(1.05);
+      }
+      .smoke-text {
+        text-shadow: 0 0 30px rgba(255,255,255,0.2);
+        position: relative;
+      }
+      .smoke-particle {
+        position: absolute;
+        filter: blur(8px);
+        background: white;
+        opacity: 0.1;
+        pointer-events: none;
+      }
+      .lens-flare {
+        background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+        pointer-events: none;
+      }
+    }
+    body {
+      background-color: #020108;
+      cursor: none;
+    }
+    .custom-cursor {
+      width: 20px;
+      height: 20px;
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s;
+    }
+  </style>
+</head>
+<body class="font-display text-white selection:bg-primary/40 overflow-x-hidden">
+<div class="custom-cursor hidden lg:block"></div>
+<div class="fixed inset-0 z-[-1] cosmic-abyss overflow-hidden">
+<div class="absolute inset-0 nebula-cloud bg-primary w-[200%] h-[200%] -top-[50%] -left-[50%]"></div>
+<div class="absolute inset-0 nebula-cloud bg-blue-900 w-[150%] h-[150%] -bottom-[20%] -right-[30%]"></div>
+<div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] lens-flare opacity-10"></div>
+<div class="absolute top-[10%] left-[20%] w-0.5 h-0.5 bg-white rounded-full opacity-60"></div>
+<div class="absolute top-[40%] left-[80%] w-1 h-1 bg-white rounded-full opacity-40"></div>
+<div class="absolute top-[70%] left-[10%] w-0.5 h-0.5 bg-white rounded-full opacity-80"></div>
+<div class="absolute top-[25%] left-[55%] w-1 h-1 bg-white rounded-full opacity-50"></div>
+</div>
+<nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50">
+<div class="px-8 py-3 frosted-refraction rounded-full flex items-center gap-8 border border-white/10 shadow-2xl">
+<a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest" href="#home">Home</a>
+<a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest" href="#about">About</a>
+<a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest" href="#skills">Stack</a>
+<a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest" href="#projects">Work</a>
+<a class="px-6 py-2 bg-primary rounded-full text-xs font-black tracking-widest uppercase shadow-[0_0_25px_rgba(71,37,244,0.6)] hover:scale-105 transition-transform" href="#contact">Contact</a>
+</div>
+</nav>
+<main class="max-w-7xl mx-auto px-6">
+<section class="min-h-screen flex flex-col items-center justify-center text-center relative pt-20" id="home">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 blur-[200px] rounded-full"></div>
+<span class="inline-block py-2 px-5 frosted-refraction rounded-full text-[10px] font-black tracking-[0.3em] text-primary mb-10 uppercase border-primary/30">
+        System Protocol: Active
+      </span>
+<h1 class="text-8xl md:text-[10rem] font-bold tracking-tighter leading-none mb-10 smoke-text">
+<span class="relative">
+        ALEXANDER
+<div class="smoke-particle w-12 h-12 -top-4 left-1/4 rounded-full"></div>
+<div class="smoke-particle w-20 h-20 -bottom-8 right-1/3 rounded-full"></div>
+</span><br/>
+<span class="text-white/5 outline-text" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">VOYAGER</span>
+</h1>
+<p class="max-w-2xl text-xl text-white/50 mb-14 leading-relaxed font-light">
+    Engineering <span class="text-white">hyper-spatial digital architectures</span>. Bridging industrial-grade infrastructure with ultra-cinematic visual fidelity.
+</p>
+<div class="flex items-center gap-10">
+<a class="p-5 frosted-refraction rounded-2xl hover:bg-primary/20 transition-all border-white/5 group shadow-xl" href="#">
+<img class="w-7 h-7 group-hover:scale-110 transition-transform brightness-200" data-alt="Github icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXjjDrHvANp5-EI_9Y0mV7266oZY5i6ZRPBiWOSuseRTMRXVCt5owzNQTzXTqYF8-cjZesAPE1IGDTOs8qfHb8BlgHeTY412xexK_QLSR6Rq3rYm9z32I4aHbDlbgioaWMIK67pEQ4p-fpzOyAktyLwT4lbBkqju2BpYpgt3cJ8coVlfuvdi_I7wA1V2Doac5rW53jmBxzy7212bDtSev3-QUJwuDVbNWEdAuf5YCIu-jlcFEl2QhKCNWVdhge9m5hNvTi7zPFFG04"/>
+</a>
+<a class="p-5 frosted-refraction rounded-2xl hover:bg-primary/20 transition-all border-white/5 group shadow-xl" href="#">
+<img class="w-7 h-7 group-hover:scale-110 transition-transform brightness-200" data-alt="LinkedIn icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1wTq4iNAsh3w8Ya13rNDelTmr4O8n0ch6UfGDIkenm11A6hzStSg4a_ucJaEgdeycSEY2lSZ-_hTK-ywzMG7VnWKaohLYSAYN14sDX6xwJiVAaQYY-Dt1-7Ow7TkYsXx43ersimLkt8a4Udx7dE-L19Ap0hUDN67taRzn4e98kfyastYPzasEU3be7BoJbvtpE-BiuMv0xVReVaFe7KclabTyFCtWSwwpaKWW-KcgRJWVpWUk4rUZSsnicivjQcgZNfdws5hc0xRB"/>
+</a>
+<a class="p-5 frosted-refraction rounded-2xl hover:bg-primary/20 transition-all border-white/5 group shadow-xl" href="#">
+<img class="w-7 h-7 group-hover:scale-110 transition-transform brightness-200" data-alt="Twitter icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDukDKEvz1wPM_fhY38eUppaeGVIBVIqZ4vdQiB6j3oC2XJxtep5LUVwZM2aoSrWMeP7P_wMKinGWct8HAl_0qfHGqgOJSk4qf0RGPzI07G9b_zOFojluMs7-e09P9ZGFLppugVerDaHu46j2ti7gcjNsTDycqP-I25o_Ep9yUkKLOE1uNWTPRgSkE8khFg9dep2ucmCeqeQ4SLBI3QbIZ5UCv6b6vsYr0xTkoRbmBsya0vUXkKgCvA8U8CGxiFBGo5paGlee4UmY0V"/>
+</a>
+</div>
+</section>
+<section class="py-40" id="about">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+<div class="relative group">
+<div class="absolute -inset-4 bg-primary/20 rounded-3xl blur-3xl opacity-0 group-hover:opacity-100 transition duration-1000"></div>
+<div class="relative frosted-refraction rounded-3xl p-3 aspect-[4/5] overflow-hidden group">
+<img class="w-full h-full object-cover rounded-2xl grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-1000" data-alt="Portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaaO39F_UJLPKo2EKXtYG9XN80cbWh73piHreFc0eO4xsbfnhxHqNhFIIL3gMGdsChONbh21N5TEEMb_MOTN8QWHcwJQNnT1SHemmSFnVJA3HnRJoqmCjTz1rRgN_EYOBqFTsEocK9cl0kH_YBUdPgk5YlFGwLkK5NHV7F-p_45IboOVG9VOjTBPHf8tpfZXAzRhf52rDYETNQW0cd2bf7taM2hKTkHs2AAJtFIH3sFf-8SPraxrBcyK4OZw7tCDC0upKTi4DZLjke"/>
+<div class="absolute inset-0 light-streak w-full h-[50%] top-[-25%] rotate-45 group-hover:top-[125%] transition-all duration-1000"></div>
+</div>
+</div>
+<div>
+<h2 class="text-5xl font-bold mb-10 flex items-center gap-6">
+<span class="w-16 h-[1px] bg-primary/50"></span>
+            Profile
+          </h2>
+<div class="space-y-8 text-white/60 text-xl leading-relaxed font-light">
+<p>
+    With over 8 cycles in the digital expanse, I specialize in synthesizing <span class="text-white font-medium">high-throughput systems</span> that redefine digital interaction. My methodology merges structural integrity with sensory immersion.
+</p>
+<p>
+    Operating at the event horizon of complex back-end fabrics and hyper-fluid visual interfaces. Whether architecting distributed cloud nodes or sculpting 3D user environments, I apply a cinematic depth to every line of code.
+</p>
+<div class="grid grid-cols-2 gap-12 pt-12">
+<div class="relative">
+<p class="text-5xl font-black text-white mb-2">40+</p>
+<p class="text-[10px] uppercase tracking-[0.4em] text-primary font-black">Deployments</p>
+<div class="absolute -left-4 top-0 w-[1px] h-full bg-primary/40"></div>
+</div>
+<div class="relative">
+<p class="text-5xl font-black text-white mb-2">08</p>
+<p class="text-[10px] uppercase tracking-[0.4em] text-primary font-black">Years Mastery</p>
+<div class="absolute -left-4 top-0 w-[1px] h-full bg-primary/40"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-40" id="skills">
+<div class="text-center mb-24">
+<h2 class="text-5xl font-bold mb-6 tracking-tight">Core Nucleus</h2>
+<p class="text-white/40 text-lg uppercase tracking-[0.2em] font-light">High-fidelity toolset for digital terraforming</p>
+</div>
+<div class="flex flex-wrap justify-center gap-16">
+<div class="group relative flex flex-col items-center">
+<div class="w-32 h-32 rounded-full sphere-3d flex items-center justify-center transition-transform duration-700 hover:-translate-y-4">
+<img class="w-12 h-12 relative z-10 brightness-200" data-alt="React" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAH1Mg4B0tg9ZqthQDRNVcu9SX8T_NbDhwd6sh2JvhiE5M3ZLBHJw75QNIFct167oW9UP3GyBjLTyQeh7jMXjt8rITA3Po4ySY1WKLQyW1oRemxECVDtlUMDolw7OP-cYfBWy2Y9MgWpSI4qrCHAsZQcVzS70ay_ulU4lDHFoOtl2yg4xKn1xnAESE0m2i-0BaWHKyRieRWXW11F3IyeUqjDKfF_RbpgZKI_gQxoRuHkxYzwr31YnsDNlzkbWegHw_ptQKAUvc3EznB"/>
+</div>
+<span class="mt-6 font-black text-xs uppercase tracking-[0.3em] text-primary opacity-60 group-hover:opacity-100 transition-opacity">React.JS</span>
+</div>
+<div class="group relative flex flex-col items-center">
+<div class="w-32 h-32 rounded-full sphere-3d flex items-center justify-center transition-transform duration-700 hover:-translate-y-6 delay-75">
+<img class="w-12 h-12 relative z-10 brightness-200" data-alt="Node" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSIE6oOBzNuwl_W97LisB-Ev6cYkSFWG2e9CdLcT2rB6RXNwkdVjnrT-IymRPF0D7FvZjGmO0Ro4Tp5ePd1eQ62yxnG5d32wBbKqhZgxPwGcwdnKsxDWgo0a_RMWAmfWKefsOQRUV5nDKvYj0Oku7zvPESC60iNkS9rzS6ORCb_vUjsbcDDmNOp_dKpca__I-I9TbwPlLpQKy9E787FBg4u3e6MKvfHLti3auEWQZraHTzDyLXHHIu68J_h-35m085rIVv9mDKqLw_"/>
+</div>
+<span class="mt-6 font-black text-xs uppercase tracking-[0.3em] text-primary opacity-60 group-hover:opacity-100 transition-opacity">Node.JS</span>
+</div>
+<div class="group relative flex flex-col items-center">
+<div class="w-32 h-32 rounded-full sphere-3d flex items-center justify-center transition-transform duration-700 hover:-translate-y-4 delay-150">
+<img class="w-12 h-12 relative z-10 brightness-200" data-alt="TS" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSARuWxd_KQ_PJ8yM8sEJ6nN23nx7TgSVt-GUskU3Q_56eOaFeEWCDb87aj-R9vegdSZljxmKZ7WWqeuG7Bgux-3UekMt04y-vJN_GWLGl5TgP1iaq7FhGvVbdWfRRQDd_hA7NFfoofHAEt1WXdmsJ9e3STMZs5Gx9elz1QVu-n0_3KTTKjIv4G50u1nJyZBE078tStSvmYaAxKPJB8OMCCINTVrygF1a2O4W-mUsL45qkdFceRwEmkUcoqzpDJuQPh1wW-6_kvy3f"/>
+</div>
+<span class="mt-6 font-black text-xs uppercase tracking-[0.3em] text-primary opacity-60 group-hover:opacity-100 transition-opacity">TypeScript</span>
+</div>
+<div class="group relative flex flex-col items-center">
+<div class="w-32 h-32 rounded-full sphere-3d flex items-center justify-center transition-transform duration-700 hover:-translate-y-8 delay-300">
+<img class="w-12 h-12 relative z-10 brightness-0 invert" data-alt="AWS" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBy2WFpQI1ardim4J1G8np9Hp5TJEdPBUyBp3hVvpTPunvLE8iVnxqXmOVt5dnee4Gd9B86G4foAJcmFb9N7Yn-t2Ji3n0AGUf9loWcoOyiVyBy8CjERTM2-ZPYfRsFKoPQw5HD4qlD8u4pOdaSx8pFluJEaIQCnk-CUS-Qlic0sL_NJPDsGE1qA-yF8_B8floQiE3Cq7Bdx6ur-KBHbcyjfLrqqGos8Blr-LLLj3WFfj3lFuxMYtRpPL-5-95-9raNxP_q3T-dkzJf"/>
+</div>
+<span class="mt-6 font-black text-xs uppercase tracking-[0.3em] text-primary opacity-60 group-hover:opacity-100 transition-opacity">AWS Cloud</span>
+</div>
+<div class="group relative flex flex-col items-center">
+<div class="w-32 h-32 rounded-full sphere-3d flex items-center justify-center transition-transform duration-700 hover:-translate-y-5 delay-100">
+<img class="w-12 h-12 relative z-10 brightness-200" data-alt="Postgres" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZn2cwUGF6S5OA9dg0VOjOj80C0IYVTqZ0g3eITeemWSbxAQSjmdDWVDi1fQwHM17iLlJsRovRekQ6hSnLR0wFWs4TiD62apQAx-ActT-EC-Ck6THBT6mHX5i1-KrXRovOR3XrgrG2Q3u_gZvGhijkv2K9O63gF34U31BGRe-WxXxe3Z_BWPoxN8DMOGS8ulSHMzUU-ftZhrdrZlsKfPklP5b1AsQVCSqICV9GsFcM6A4AuK_N_eOkyz65PgrZUFlw30UXl80oThdl"/>
+</div>
+<span class="mt-6 font-black text-xs uppercase tracking-[0.3em] text-primary opacity-60 group-hover:opacity-100 transition-opacity">Postgres</span>
+</div>
+</div>
+</section>
+<section class="py-40">
+<div class="max-w-5xl mx-auto px-6">
+<h2 class="text-5xl font-bold mb-32 text-center tracking-tight">Mission Chronology</h2>
+<div class="relative">
+<div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[1px] bg-white/10">
+<div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-primary via-white to-primary laser-pulse"></div>
+</div>
+<div class="mb-32 relative md:w-1/2 md:pr-24 md:text-right group">
+<div class="absolute top-0 w-4 h-4 bg-primary rounded-full md:right-[-8px] z-10 border-2 border-white laser-pulse"></div>
+<div class="frosted-refraction p-10 rounded-3xl border-white/5 group-hover:border-primary/40 transition-all shadow-2xl relative overflow-hidden">
+<div class="absolute inset-0 light-streak w-full h-[20%] top-0 opacity-10 group-hover:top-full transition-all duration-700"></div>
+<span class="text-primary font-black text-xs tracking-[0.3em] uppercase">2021 — PRESENT</span>
+<h3 class="text-2xl font-bold mt-4 text-white">Senior Software Architect</h3>
+<p class="text-white/40 mb-6 font-light">Nebula Systems</p>
+<ul class="text-sm text-white/50 space-y-3 font-light">
+<li>Engineered ultra-low latency serverless infrastructure</li>
+<li>Scaled global user cluster from 100k to 2M nodes</li>
+<li>Strategic technical direction for elite dev teams</li>
+</ul>
+</div>
+</div>
+<div class="mb-32 relative md:w-1/2 md:pl-24 md:ml-auto group">
+<div class="absolute top-0 w-4 h-4 bg-primary rounded-full md:left-[-8px] z-10 border-2 border-white laser-pulse"></div>
+<div class="frosted-refraction p-10 rounded-3xl border-white/5 group-hover:border-primary/40 transition-all shadow-2xl relative overflow-hidden">
+<div class="absolute inset-0 light-streak w-full h-[20%] top-0 opacity-10 group-hover:top-full transition-all duration-700"></div>
+<span class="text-primary font-black text-xs tracking-[0.3em] uppercase">2018 — 2021</span>
+<h3 class="text-2xl font-bold mt-4 text-white">Full Stack Developer</h3>
+<p class="text-white/40 mb-6 font-light">Cyberflow Digital</p>
+<ul class="text-sm text-white/50 space-y-3 font-light">
+<li>Architected real-time GraphQL data fabric</li>
+<li>Optimized runtime cycles for critical UX paths</li>
+<li>Developed proprietary collaborative workspaces</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-40" id="projects">
+<div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+<div>
+<h2 class="text-5xl font-bold mb-6 tracking-tight">Project Artifacts</h2>
+<p class="text-white/40 text-lg uppercase tracking-[0.2em] font-light">Hyper-space optimized digital environments</p>
+</div>
+<a class="text-primary font-black text-xs uppercase tracking-[0.4em] hover:text-white transition-colors flex items-center gap-3 group" href="#">
+          Deep Archive <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+<div class="hyper-space-hover relative group cursor-pointer">
+<div class="relative rounded-3xl overflow-hidden frosted-refraction border-white/5 shadow-2xl">
+<div class="h-64 relative overflow-hidden">
+<img class="inner-parallax w-full h-full object-cover opacity-40 group-hover:opacity-80 group-hover:scale-125" data-alt="Project 1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm4IAls8CD38MW4rDYvp_7zADZ7v_tGYHzFy95-vv5BaLY64l3RlmlJ0wwUxtBKt653fe1jBg0VOP6CvPAHARAMIASu8jrbHKojrLTZcdbl-oqO6m6jeCWROhUTY51WEWwc6axDrx_BNlGV9vGIRmUbQWeSSIbeEU9FAeirhuxcg4CkUQG7qhQ2HPG9Egp2xYbAF56A3bzxeyOZMqVtZ9ikd0_WZBFcBbcq6rn8cKH8cXXFZYp_zFqz-VPlYA5Q2zyTKRLPxUzVlIo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark to-transparent"></div>
+</div>
+<div class="p-8 relative z-10">
+<div class="flex gap-3 mb-6">
+<span class="text-[8px] tracking-[0.3em] uppercase font-black text-primary border border-primary/30 px-3 py-1 rounded-full">Web3</span>
+<span class="text-[8px] tracking-[0.3em] uppercase font-black text-primary border border-primary/30 px-3 py-1 rounded-full">Next.JS</span>
+</div>
+<h3 class="text-2xl font-bold mb-3">Aether Dashboard</h3>
+<p class="text-xs text-white/40 mb-8 uppercase tracking-widest leading-loose">Crypto-neural visualization matrix</p>
+<button class="w-full py-4 bg-white/5 hover:bg-primary transition-all rounded-xl font-black text-[10px] tracking-[0.3em] uppercase border border-white/5">Access Unit</button>
+</div>
+</div>
+</div>
+<div class="hyper-space-hover relative group cursor-pointer">
+<div class="relative rounded-3xl overflow-hidden frosted-refraction border-white/5 shadow-2xl">
+<div class="h-64 relative overflow-hidden">
+<img class="inner-parallax w-full h-full object-cover opacity-40 group-hover:opacity-80 group-hover:scale-125" data-alt="Project 2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_0W7HMtlTktp8IFbw7qordO4GW7xxKwJyfazmqZx59MP_HoqrIG4cg6z33EQwSpyhvsvdsR2XqjFVpw5m40sLXMLy11CPA3fWdxFF6KZmD_Np-FTBHJH4zj48LS0YTu4f64HjKmZYCCGQhqBbGDfQ4gV-w2lfYUNNWZ8ZXiypCdxQUqehx91Jc0lagepu2tTHoajy5znKwzqtxPbG7I5q5WFvfgzDrMusB_hhfHWWnMpd4Z-PZiwhr3iy0Do2Tbvvvb4m_Bom_wGM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark to-transparent"></div>
+</div>
+<div class="p-8 relative z-10">
+<div class="flex gap-3 mb-6">
+<span class="text-[8px] tracking-[0.3em] uppercase font-black text-primary border border-primary/30 px-3 py-1 rounded-full">AI</span>
+<span class="text-[8px] tracking-[0.3em] uppercase font-black text-primary border border-primary/30 px-3 py-1 rounded-full">Python</span>
+</div>
+<h3 class="text-2xl font-bold mb-3">Nexus Engine</h3>
+<p class="text-xs text-white/40 mb-8 uppercase tracking-widest leading-loose">Predictive cloud infrastructure</p>
+<button class="w-full py-4 bg-white/5 hover:bg-primary transition-all rounded-xl font-black text-[10px] tracking-[0.3em] uppercase border border-white/5">Access Unit</button>
+</div>
+</div>
+</div>
+<div class="hyper-space-hover relative group cursor-pointer">
+<div class="relative rounded-3xl overflow-hidden frosted-refraction border-white/5 shadow-2xl">
+<div class="h-64 relative overflow-hidden">
+<img class="inner-parallax w-full h-full object-cover opacity-40 group-hover:opacity-80 group-hover:scale-125" data-alt="Project 3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEDwS1MCShJczTvtC4kXvjXjnT0nNBNmNGH-TjGXCi94RZUn8XAoY8PPzwXqYs966VjdvamgchfdkZQ0_CJfoUlKMrDIgQJPchS3ErQWQSHrViHPL6CbnzWEbfeQ28iKX517U9kCdCEHEA19xeQrtkdbL3FZWsQBFR0hRgetjdYl3pgyHzykm31gQXfhquefFwEx9g8CEURhdK1lllhyURM8tOWHjISCzYAf_X-TvY7ggknLLTQGq1lJEw9WwcFu10A6PTZIUQgy4A"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark to-transparent"></div>
+</div>
+<div class="p-8 relative z-10">
+<div class="flex gap-3 mb-6">
+<span class="text-[8px] tracking-[0.3em] uppercase font-black text-primary border border-primary/30 px-3 py-1 rounded-full">3D</span>
+<span class="text-[8px] tracking-[0.3em] uppercase font-black text-primary border border-primary/30 px-3 py-1 rounded-full">Three.JS</span>
+</div>
+<h3 class="text-2xl font-bold mb-3">Void OS</h3>
+<p class="text-xs text-white/40 mb-8 uppercase tracking-widest leading-loose">Volumetric web environment</p>
+<button class="w-full py-4 bg-white/5 hover:bg-primary transition-all rounded-xl font-black text-[10px] tracking-[0.3em] uppercase border border-white/5">Access Unit</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-40">
+<div class="max-w-4xl mx-auto holographic-flicker frosted-refraction rounded-[2rem] p-16 border-white/10 shadow-[0_0_50px_rgba(71,37,244,0.2)] group">
+<div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center gap-16">
+<div class="w-40 h-40 flex-shrink-0 sphere-3d rounded-2xl flex items-center justify-center bg-background-dark border border-white/10 group-hover:scale-110 transition-transform duration-700">
+<span class="material-symbols-outlined text-7xl text-primary drop-shadow-[0_0_15px_rgba(71,37,244,1)]">account_balance</span>
+</div>
+<div class="flex-1">
+<h2 class="text-4xl font-bold mb-8 tracking-tight">Academic Synthesis</h2>
+<div class="space-y-10">
+<div class="relative pl-6 border-l-2 border-primary/30">
+<h4 class="text-2xl font-semibold">M.S. Computer Science</h4>
+<p class="text-white/40 text-sm mt-1">Stanford University • 2016 — 2018</p>
+<p class="text-[10px] mt-4 tracking-[0.3em] uppercase font-black text-primary">Distributed Intelligence Systems</p>
+</div>
+<div class="flex flex-wrap gap-4">
+<div class="px-5 py-3 frosted-refraction rounded-xl text-[10px] font-black tracking-widest uppercase border-white/5 hover:border-primary/50 transition-colors">AWS Solutions Architect</div>
+<div class="px-5 py-3 frosted-refraction rounded-xl text-[10px] font-black tracking-widest uppercase border-white/5 hover:border-primary/50 transition-colors">Google Cloud Professional</div>
+<div class="px-5 py-3 frosted-refraction rounded-xl text-[10px] font-black tracking-widest uppercase border-white/5 hover:border-primary/50 transition-colors">Meta Engineering Lead</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-40 text-center" id="contact">
+<div class="frosted-refraction rounded-[3rem] p-24 border-white/5 relative overflow-hidden shadow-2xl">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_#4725f422,_transparent_70%)] opacity-50"></div>
+<h2 class="text-6xl md:text-8xl font-black mb-10 relative z-10 tracking-tighter">INITIATE<br/>CONTACT</h2>
+<p class="text-2xl text-white/40 mb-16 max-w-3xl mx-auto relative z-10 font-light leading-relaxed">
+        Transmission lines are open for next-gen digital infrastructure projects.
+    </p>
+<div class="flex flex-col md:flex-row items-center justify-center gap-10 relative z-10">
+<a class="px-12 py-6 bg-primary text-white rounded-2xl font-black text-xs tracking-[0.4em] uppercase shadow-[0_25px_60px_rgba(71,37,244,0.4)] hover:scale-105 transition-all flex items-center gap-4" href="mailto:hello@voyager.dev">
+<span class="material-symbols-outlined text-lg">terminal</span> Launch Transmission
+        </a>
+<a class="px-12 py-6 frosted-refraction border-white/10 hover:bg-white/5 text-white rounded-2xl font-black text-xs tracking-[0.4em] uppercase transition-all" href="#">
+            Schedule Sync
+        </a>
+</div>
+</div>
+</section>
+</main>
+<footer class="py-24 border-t border-white/5 mt-20 relative overflow-hidden">
+<div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-12 relative z-10">
+<div class="flex flex-col gap-3">
+<span class="text-3xl font-black tracking-tighter">VOYAGER<span class="text-primary">.</span></span>
+<p class="text-[10px] text-white/20 uppercase tracking-[0.5em]">Cosmic Grade Engineering © 2024</p>
+</div>
+<div class="flex gap-12 text-white/40 text-[10px] uppercase tracking-[0.3em] font-black">
+<a class="hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="hover:text-primary transition-colors" href="#">Github</a>
+<a class="hover:text-primary transition-colors" href="#">LinkedIn</a>
+</div>
+<p class="text-white/20 text-[10px] font-light uppercase tracking-widest">
+    All transmissions secured via encrypted link.
+</p>
+</div>
+<div class="absolute inset-0 holographic-flicker opacity-10 pointer-events-none"></div>
+</footer>
+<script>
+    // Custom cursor movement script (handled via standard browser capabilities as requested without complex JS logic)
+    const cursor = document.querySelector('.custom-cursor');
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+    // Simple hover effect for links to enlarge cursor
+    document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.style.transform = 'translate(-50%, -50%) scale(2)');
+        el.addEventListener('mouseleave', () => cursor.style.transform = 'translate(-50%, -50%) scale(1)');
+    });
+</script>
+
+</body></html>
