@@ -225,7 +225,6 @@ function App() {
       </nav>
 
       <Hero name={userData.name} tagline={userData.tagline} />
-
  {/* SKILLS */}
 <section
   id="skills"
@@ -330,7 +329,7 @@ function App() {
         }`}
       >
         {/* Timeline Dot */}
-        <div className="absolute top-6 -left-3 md:left-auto md:-right-3 w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full shadow-lg shadow-pink-500/50 animate-pulse" />
+        
 
         <motion.div
           whileHover={{ scale: 1.05 }}
