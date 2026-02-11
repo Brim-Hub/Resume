@@ -312,8 +312,7 @@ function App() {
     Experience
   </motion.h2>
 
-  {/* Vertical Timeline Line */}
-  <div className="absolute left-1/2 top-0 h-full w-1 bg-gradient-to-b from-purple-500 via-pink-500 to-indigo-500 opacity-30" />
+
 
   <div className="space-y-24 relative z-10">
     {userData.experiences.map((exp, i) => (
