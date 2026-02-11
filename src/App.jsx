@@ -25,13 +25,13 @@ import {
 } from "react-icons/si";
 
 import { userData } from "./constants/userData";
-import Contact from "./Contact";
-import ProjectsSection from "./ProjectsSection";
-import KeyProjectsSection from "./KeyProjectsSection";
-import ExperienceSection from "./ExperienceSection";
-import SkillsSection3D from "./SkillsSection3D";
-import CyberNavbar from "./CyberNavbar";
-import Hero from "./Hero";
+import Contact from "./component/Contact";
+import ProjectsSection from "./component/ProjectsSection";
+import KeyProjectsSection from "./component/KeyProjectsSection";
+import ExperienceSection from "./component/ExperienceSection";
+import SkillsSection3D from "./component/SkillsSection3D";
+import CyberNavbar from "./component/CyberNavbar";
+import Hero from "./component/Hero";
 
 function App() {
   const [activeTab, setActiveTab] = useState("Frontend");
