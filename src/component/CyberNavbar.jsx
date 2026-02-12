@@ -1,13 +1,25 @@
 "use client";
 
-import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useSpring,
+} from "framer-motion";
 import { useState, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 
-export default function CyberNavbar({ userData, navLinks }) {
+export default function CyberNavbar({
+  userData,
+  navLinks,
+  scrollToHero,
+}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [active, setActive] = useState("");
 
-  // Tilt motion for logo and nav items
+  if (!userData) return null;
+
+  /* 3D Logo Tilt */
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const rotateX = useSpring(y, { stiffness: 120, damping: 14 });
@@ -27,151 +39,177 @@ export default function CyberNavbar({ userData, navLinks }) {
     y.set(0);
   };
 
-  // Floating cyber particles
-  const [particles, setParticles] = useState([]);
+  /* Active Section Highlight */
   useEffect(() => {
-    const temp = [];
-    for (let i = 0; i < 18; i++) {
-      temp.push({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 4 + 1,
-        delay: Math.random() * 2,
-        speed: Math.random() * 6 + 3,
+    const handleScroll = () => {
+      navLinks.forEach((link) => {
+        if (link.href.startsWith("#")) {
+          const section = document.querySelector(link.href);
+          if (section) {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= 120 && rect.bottom >= 120) {
+              setActive(link.href);
+            }
+          }
+        }
       });
-    }
-    setParticles(temp);
-  }, []);
+    };
 
-  // Smooth scroll to hero
-  const scrollToHero = () => {
-    const hero = document.getElementById("hero");
-    if (hero) hero.scrollIntoView({ behavior: "smooth" });
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [navLinks]);
+
+  const handleLinkClick = (e, href) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const section = document.querySelector(href);
+      section?.scrollIntoView({ behavior: "smooth" });
+    }
     setIsMenuOpen(false);
   };
 
   return (
-    <nav
-      className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 md:px-12 py-4 backdrop-blur-lg bg-black/40 shadow-lg rounded-b-xl overflow-hidden"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ perspective: 1000 }}
+    <>
+      {/* Top Navbar */}
+   <nav
+  onMouseMove={handleMouseMove}
+  onMouseLeave={handleMouseLeave}
+  style={{ perspective: 1000 }}
+  className="fixed top-0 left-0 w-full z-[1000]
+  bg-black
+  border-b border-gray-900
+  flex justify-between items-center
+  px-6 md:px-16
+  h-[75px]
+  transition-all duration-300"
+>
+  {/* Subtle Bottom Glow Line */}
+  <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-purple-600 to-transparent opacity-40" />
+
+  {/* Logo */}
+  <motion.div
+    style={{ rotateX, rotateY }}
+    whileHover={{ scale: 1.06 }}
+    transition={{ type: "spring", stiffness: 200 }}
+    onClick={() => {
+      scrollToHero();
+      setIsMenuOpen(false);
+    }}
+    className="cursor-pointer select-none"
+  >
+    <span
+      className="text-2xl md:text-3xl font-extrabold tracking-wide 
+      bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-400 
+      bg-clip-text text-transparent"
     >
-      {/* Neon Glow Background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute -top-20 -left-20 w-[450px] h-[450px] bg-purple-400/30 blur-[140px] animate-[spin_45s_linear_infinite]" />
-        <div className="absolute -bottom-20 -right-20 w-[450px] h-[450px] bg-pink-400/30 blur-[140px] animate-[spin_50s_linear_infinite_reverse]" />
-        {particles.map((p) => (
-          <motion.div
-            key={p.id}
-            animate={{
-              x: [p.x, p.x + Math.random() * 6, p.x],
-              y: [p.y, p.y + Math.random() * 6, p.y],
-              opacity: [0.3, 0.7, 0.3],
-            }}
-            transition={{
-              repeat: Infinity,
-              duration: p.speed,
-              delay: p.delay,
-              repeatType: "loop",
-            }}
-            className="absolute rounded-full bg-gradient-to-tr from-pink-500 to-purple-500"
-            style={{
-              width: p.size,
-              height: p.size,
-              top: `${p.y}%`,
-              left: `${p.x}%`,
-              filter: "blur(1px)",
-            }}
-          />
-        ))}
-      </div>
+      {userData.name}
+    </span>
+  </motion.div>
 
-      {/* Logo */}
-      <motion.div
-        style={{ rotateX, rotateY }}
-        whileHover={{ scale: 1.07 }}
-        transition={{ type: "spring", stiffness: 160, damping: 12 }}
-        className="cursor-pointer"
-        onClick={scrollToHero}
-      >
-        <span className="text-2xl md:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-400 bg-clip-text text-transparent drop-shadow-[0_0_6px_rgba(255,255,255,0.5)]">
-          {userData.name}
-        </span>
-      </motion.div>
-
-      {/* Desktop Nav */}
-      <div className="hidden md:flex space-x-8 text-gray-300 font-medium">
-        {navLinks.map((link) => (
-          <motion.a
-            key={link.name}
-            href={link.href}
-            whileHover={{ scale: 1.1, textShadow: "0 0 8px rgba(255,255,255,0.4)" }}
-            transition={{ type: "spring", stiffness: 160, damping: 12 }}
-            className="hover:text-purple-400 transition-all"
-          >
-            {link.name}
-          </motion.a>
-        ))}
-        <motion.a
-          href="/Resume.pdf"
-          download
-          whileHover={{ scale: 1.05, textShadow: "0 0 10px rgba(255,255,255,0.5)" }}
-          className="hover:text-purple-400 transition-all"
+  {/* Desktop Links */}
+  <div className="hidden md:flex items-center space-x-10 font-medium">
+    {navLinks.map((link) => (
+      <div key={link.name} className="relative group">
+        <a
+          href={link.href}
+          onClick={(e) => handleLinkClick(e, link.href)}
+          className={`text-[15px] tracking-wide transition-colors duration-300 ${
+            active === link.href
+              ? "text-purple-400"
+              : "text-gray-400 group-hover:text-white"
+          }`}
         >
-          Download CV
-        </motion.a>
-      </div>
+          {link.name}
+        </a>
 
-      {/* Mobile Menu Toggle */}
-      <div
-        className="md:hidden text-2xl text-white cursor-pointer z-50"
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-      >
-        {isMenuOpen ? <FaTimes /> : <FaBars />}
+        {/* Animated Underline */}
+        <motion.div
+          layoutId="active-line"
+          className={`absolute -bottom-2 left-0 h-[2px] bg-purple-500 transition-all duration-300 ${
+            active === link.href
+              ? "w-full"
+              : "w-0 group-hover:w-full"
+          }`}
+        />
       </div>
+    ))}
 
-      {/* Mobile Menu Overlay */}
+    {/* CV Button */}
+    <motion.a
+      href="/Resume.pdf"
+      download
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      className="ml-4 px-5 py-2 rounded-full 
+      bg-purple-600 text-white text-sm font-semibold
+      hover:bg-purple-700 transition-all duration-300
+      shadow-lg shadow-purple-600/20"
+    >
+      Download CV
+    </motion.a>
+  </div>
+
+  {/* Mobile Toggle */}
+  <button
+    onClick={() => setIsMenuOpen(!isMenuOpen)}
+    className="md:hidden text-2xl text-white transition hover:text-purple-400"
+  >
+    {isMenuOpen ? <FaTimes /> : <FaBars />}
+  </button>
+</nav>
+
+
+      {/* Mobile Full Screen Menu */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ type: "spring", stiffness: 120, damping: 14 }}
-            className="fixed inset-0 h-screen bg-black/95 flex flex-col items-center justify-center space-y-10 text-2xl z-[60] md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-black z-[2000]
+            flex flex-col items-center justify-center
+            space-y-10 md:hidden"
           >
-            <div
-              className="absolute top-6 right-6 text-3xl hover:text-pink-400 transition"
+            {/* Close Button Top Right */}
+            <button
               onClick={() => setIsMenuOpen(false)}
+              className="absolute top-6 right-6 text-3xl text-white"
             >
               <FaTimes />
-            </div>
-            {navLinks.map((link) => (
+            </button>
+
+            {navLinks.map((link, index) => (
               <motion.a
                 key={link.name}
                 href={link.href}
-                onClick={() => setIsMenuOpen(false)}
-                whileHover={{ scale: 1.1, textShadow: "0 0 10px rgba(255,255,255,0.5)" }}
-                transition={{ type: "spring", stiffness: 160, damping: 12 }}
-                className="hover:text-purple-400 transition"
+                onClick={(e) => handleLinkClick(e, link.href)}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="text-4xl font-semibold text-gray-300 
+                hover:text-purple-400 transition"
               >
                 {link.name}
               </motion.a>
             ))}
+
             <motion.a
               href="/Resume.pdf"
               download
-              onClick={() => setIsMenuOpen(false)}
-              whileHover={{ scale: 1.05 }}
-              className="px-10 py-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg hover:shadow-2xl transition-all"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: navLinks.length * 0.1 }}
+              className="mt-6 px-10 py-4 rounded-full 
+              bg-purple-600 text-white text-2xl
+              hover:bg-purple-700 transition"
             >
               Download CV
             </motion.a>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   );
 }

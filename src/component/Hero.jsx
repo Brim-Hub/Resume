@@ -113,13 +113,6 @@ const Hero = ({ id, name, tagline }) => {
         >
           View Projects1
         </a>
-
-        <a
-          href="#contact"
-          className="px-8 py-3 rounded-full border border-white/30 text-white hover:bg-white/10 transition-all"
-        >
-          Contact Me
-        </a>
       </motion.div>
 
       {/* 🌌 Floating Cyber Particles */}

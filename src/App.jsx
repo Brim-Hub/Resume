@@ -51,13 +51,21 @@ function App() {
     { name: "Skills", href: "#skills" },
     { name: "Experience", href: "#experience" },
     { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
+    { name: "Contact", href: "#contact-section" },
   ];
 
   return (
     <div ref={ref} className="relative bg-black text-white overflow-x-hidden">
       {/* NAVBAR */}
-      <CyberNavbar scrollToHero={scrollToHero} userData={userData} navLinks={navLinks} />
+      {/* <CyberNavbar scrollToHero={scrollToHero} userData={userData} navLinks={navLinks} /> */}
+      <CyberNavbar
+  scrollToHero={scrollToHero}
+  userData={userData}
+  navLinks={navLinks}
+  isMenuOpen={isMenuOpen}
+  setIsMenuOpen={setIsMenuOpen}
+/>
+
 
       {/* HERO SECTION */}
       <Hero id="hero" name={userData.name} tagline={userData.tagline} />
@@ -75,7 +83,7 @@ function App() {
       <ProjectsSection id="projects-categorized" userData={userData} />
 
       {/* CONTACT SECTION */}
-      <Contact id="contact" userData={userData} />
+      <Contact id="contact-section" userData={userData} />
     </div>
   );
 }
